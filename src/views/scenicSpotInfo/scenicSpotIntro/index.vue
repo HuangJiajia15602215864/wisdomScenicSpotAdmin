@@ -2,13 +2,16 @@
 <!--功能： 搜索、添加、分页、表格（序号、ID、景点名字、适游时间、介绍、图片、操作【修改、删除】） -->
 <template>
   <div class="scenicSpotIntro">
+    <!-- 表格顶部 -->
     <div class="header">
       <el-input
           v-model="search"
           size="small"
           placeholder="输入关键字搜索"/>
-     <el-button type="primary" size="small">添加景点信息</el-button>
+      <el-button type="primary" size="mini">搜索</el-button>
+     <el-button type="primary" size="small" @click="$router.push('/home/scenicSpotIntro/edit')">添加景点信息</el-button>
     </div>
+    <!-- 表格 -->
     <el-table :data="spotsData" stripe size="small" :default-sort="{prop: 'date', order: 'descending'}" :cell-style="{padding:'1px 0'}"
     :header-cell-style="{background:'#ddd'}">
       <el-table-column prop="num" label="序号" sortable width="80">
@@ -45,11 +48,21 @@
         <template slot-scope="scope">
           <el-button type="primary" size="mini" icon="el-icon-edit" circle @click="handleEdit(scope.$index, scope.row)"></el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" circle @click="handleDelete(scope.$index, scope.row)"></el-button>
-          <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" >删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页符 -->
+    <el-pagination class="pagination"
+      background
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400">
+    </el-pagination>
+</el-pagination>
   </div>
 </template>
 
@@ -146,7 +159,12 @@
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
+        this.$router.push({
+          path: '/home/scenicSpotIntro/edit',
+          query: {
+            spotsData: row
+          }
+        });
       },
       handleDelete(index, row) {
         console.log(index, row);
@@ -154,16 +172,19 @@
 
     }
   }
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scope>
 .header{
-    display: flex;
     margin-bottom: 10px;
     .el-input{
         width: 200px;
-        margin-right: 50px;
+    }
+    .el-button--mini{
+      margin-left:10px;
+    }
+    .el-button--small{
+      float: right;
     }
 }
 .el-tag--medium{
@@ -177,4 +198,9 @@
 .el-popover{
     width: 400px;
 }
+.pagination{
+  float: right;
+  margin-top: 10px;
+}
+
 </style>

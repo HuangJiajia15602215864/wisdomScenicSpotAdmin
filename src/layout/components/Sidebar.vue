@@ -5,12 +5,12 @@
            <i class="logo el-icon-s-tools" style="color:chartreuse"></i>
            <span class="title">智慧景区管理系统</span>
        </div>
-        <el-menu :default-openeds="['1']">
+        <el-menu :default-openeds="['1']" router :default-active="$route.path">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-date icon-item"></i>景区信息管理</template>
             <el-menu-item-group>
-              <el-menu-item index="1-1">景点介绍</el-menu-item>
-              <el-menu-item index="1-2">活动资讯</el-menu-item>
+              <el-menu-item index="/home/scenicSpotIntro">景点介绍</el-menu-item>
+              <el-menu-item index="/home/activityInfo">活动资讯</el-menu-item>
               <el-menu-item index="1-3">选项3</el-menu-item>
             </el-menu-item-group>            
           </el-submenu>
