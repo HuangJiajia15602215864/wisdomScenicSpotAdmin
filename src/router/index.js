@@ -77,7 +77,15 @@ export const constantRoutes = [{
         meta: {
           title: '预约停车'
         }
-      }
+      },
+      {
+        path: '/home/scenicSpotTraffic',
+        name: 'scenicSpotTraffic',
+        component: resolve => void require(['@/views/dataVisualization/scenicSpotTraffic'], resolve),
+        meta: {
+          title: '景区客流'
+        }
+      },
     ]
   }
 ]

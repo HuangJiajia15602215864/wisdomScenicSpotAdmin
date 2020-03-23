@@ -11,23 +11,21 @@
             <el-menu-item-group>
               <el-menu-item index="/home/scenicSpotIntro">景点介绍</el-menu-item>
               <el-menu-item index="/home/activityInfo">活动资讯</el-menu-item>
-              <el-menu-item index="1-3">选项3</el-menu-item>
             </el-menu-item-group>            
           </el-submenu>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-phone-outline icon-item"></i>预约信息管理</template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">预约停车</el-menu-item>
-              <el-menu-item index="2-2">购票信息</el-menu-item>
-              <el-menu-item index="2-3">选项3</el-menu-item>
+              <el-menu-item index="/home/parking">预约停车</el-menu-item>
+              <el-menu-item index="/home/buyTickets">购票信息</el-menu-item>
             </el-menu-item-group>            
           </el-submenu>
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-s-marketing icon-item"></i>数据可视化</template>
             <el-menu-item-group>
-              <el-menu-item index="3-1">景区客流</el-menu-item>
-              <el-menu-item index="3-2">售票情况</el-menu-item>
-              <el-menu-item index="3-3">客流热力图</el-menu-item>
+              <el-menu-item index="/home/scenicSpotTraffic">景区客流</el-menu-item>
+              <el-menu-item index="/home/saleTickets">售票情况</el-menu-item>
+              <el-menu-item index="/home/heatMap">客流热力图</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
