@@ -37,5 +37,22 @@ const module=[{
     meta: {
       title: '预约停车'
     }
-  }]
+  },
+  {
+    path: '/home/scenicSpotTraffic',
+    name: 'scenicSpotTraffic',
+    component: resolve => void require(['@/views/dataVisualization/scenicSpotTraffic'], resolve),
+    meta: {
+      title: '景区客流'
+    }
+  },
+  {
+    path: '/home/ticketSales',
+    name: 'ticketSales',
+    component: resolve => void require(['@/views/dataVisualization/ticketSales'], resolve),
+    meta: {
+      title: '售票情况'
+    }
+  }
+]
   export default module
