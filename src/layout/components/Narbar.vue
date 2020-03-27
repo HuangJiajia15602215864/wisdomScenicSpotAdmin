@@ -3,8 +3,8 @@
     <el-header style="font-size: 12px">
       <el-breadcrumb  class="breadcrumb" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/home' }">主页</el-breadcrumb-item>
-        <el-breadcrumb-item>景区信息管理</el-breadcrumb-item>
-        <el-breadcrumb-item>景区介绍</el-breadcrumb-item>
+        <el-breadcrumb-item>{{breadcrumbOne}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{breadcrumbTwo}}</el-breadcrumb-item>
       </el-breadcrumb>
       <el-menu class="el-menu-demo" mode="horizontal">
       <el-submenu index="1">
@@ -24,6 +24,10 @@
     name: 'narbar',
     data() {
       return {}
+    },
+    props:{
+      breadcrumbOne:String,
+      breadcrumbTwo:String
     },
     watch: {
 
