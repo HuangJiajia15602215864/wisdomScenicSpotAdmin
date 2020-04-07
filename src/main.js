@@ -13,6 +13,7 @@ import '@/icons' // icon
 import '@/assets/mock/index'
 import Api from '@/assets/http/apiUrl'
 import Request from '@/assets/http'
+import 'default-passive-events'
 
 Vue.prototype.$request = Request
 Vue.prototype.API = Api

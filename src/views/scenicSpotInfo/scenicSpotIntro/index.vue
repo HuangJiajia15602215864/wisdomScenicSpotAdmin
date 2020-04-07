@@ -56,11 +56,11 @@
       background
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="currentPage"
       :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="40">
     </el-pagination>
 </el-pagination>
   </div>
@@ -71,6 +71,8 @@
     name: 'scenicSpotIntro',
     data() {
       return {
+        search:'',
+        currentPage:1,
         spotsData: [{
             num: 1,
             id: '001',
@@ -168,7 +170,14 @@
       },
       handleDelete(index, row) {
         console.log(index, row);
-      }
+      },
+            handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.getaActivityData(val);
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
 
     }
   }

@@ -1,10 +1,10 @@
 <template>
   <div class="layout">
     <el-container class="container_lager">
-      <Sidebar />
+      <Sidebar @choiceSidebar='choiceSidebar' />
       <el-container class="container_small">
         <el-header>
-          <Narbar />
+          <Narbar :breadcrumbOne='breadcrumbOne' :breadcrumbTwo='breadcrumbTwo' />
         </el-header>
         <el-main class="main">
           <router-view />
@@ -20,7 +20,10 @@
   export default {
     name: 'layout',
     data() {
-      return {}
+      return {
+        breadcrumbOne: '',
+        breadcrumbTwo: ''
+      }
     },
     components: {
       Sidebar,
@@ -30,7 +33,10 @@
 
     },
     methods: {
-
+      choiceSidebar(submenu_title, item_title) {
+        this.breadcrumbOne=submenu_title;
+        this.breadcrumbTwo=item_title;
+      }
     }
   }
 
@@ -41,13 +47,15 @@
     height: 100%;
     width: 100%;
   }
-  .container_lager{
-      height: 100%; 
+
+  .container_lager {
+    height: 100%;
   }
-  .main{
-      min-height: 550px;
-      background: #eeeeee;
-      padding-left: 220px;
+
+  .main {
+    min-height: 550px;
+    background: #eeeeee;
+    padding-left: 220px;
   }
 
 </style>
