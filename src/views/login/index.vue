@@ -4,7 +4,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="activeTab===1 ? loginByPswRules : loginByMsgRules"
       class="login-form" autocomplete="on" label-position="left">
       <div class="title">
-         智慧景区后台管理系统
+        智慧景区后台管理系统
       </div>
       <el-card shadow="hover" class="login-card">
         <div class="login-tab">
@@ -27,8 +27,7 @@
               <i class="el-icon-s-goods"></i>
             </span>
             <el-input v-model="loginForm.password" autocomplete="on" show-password name="password" placeholder="请输入密码"
-              style="padding-left: 45px" @paste.native.capture.prevent="() => {return}"
-              @copy.native.capture.prevent="() => {return}" @cut.native.capture.prevent="() => {return}"
+              style="padding-left: 45px"  @cut.native.capture.prevent="() => {return}"
               @keyup.enter.native="handleLogin" />
           </el-form-item>
           <div class="forget-psw" @click="$router.push({name: 'ResetPsw'})">
@@ -45,7 +44,7 @@
           </el-form-item>
           <el-form-item prop="code" class="login-input-item">
             <span class="svg-container">
-               <i class="el-icon-s-goods"></i>
+              <i class="el-icon-s-goods"></i>
             </span>
             <el-input v-model="loginForm.code" autocomplete="off" type="number" name="code" placeholder="验证码"
               maxlength="4" style="padding-left: 45px" @keyup.enter.native="handleLogin" />
@@ -73,6 +72,9 @@
     isvalidPhoneNumber,
     isvalidCode
   } from '@/assets/utils/validate'
+  import {
+    login
+  } from '@/utils/apply.url';
   export default {
     name: 'Login',
     data() {
@@ -218,25 +220,34 @@
       },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
-          console.log(valid)
-          if (valid) {// 表单校验结果为true
+          if (valid) { // 表单校验结果为true
             this.loading = true
             let params = {}
             switch (this.activeTab) {
               case 1:
                 params = {
-                  'username': this.loginForm.user,
-                  'password': this.loginForm.password
+                  tel: this.loginForm.user,
+                  password: this.loginForm.password
                 }
                 console.log(params)
-                this.$store.dispatch('Login', params).then(() => {
-                  this.loading = false
-                  this.$router.push({
-                    path: this.redirect || '/home'
-                  })
-                }).catch(() => {
-                  this.loading = false
-                })
+                login(params, 'post').then(res => {
+                  if (res.code == '200') {
+                    console.log(111)
+                    this.$message.success(res.msg);
+                    this.$router.push({
+                      path: '/home',
+                    });
+                  } else if (res.code == '400') {
+                    console.log(222)
+                    this.$message.error(res.msg);
+                  } else {
+                    console.log(333)
+                    this.$message.error('该账户未注册，请前往注册');
+                    return
+                  }
+                }).catch(err => {
+                  this.$message.error('登录失败' || res.msg);
+                });
                 break
               case 2:
                 params = {
@@ -253,7 +264,8 @@
                   this.loading = false
                 })
             }
-          } else {// 表单校验结果为false
+            this.loading = false
+          } else { // 表单校验结果为false
             return false
           }
         })

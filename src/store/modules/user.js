@@ -17,16 +17,16 @@ const user = {
     }
   },
   actions: {
-    Login({ commit }, params) {
+    Login({ commit }, params) {// 登录，返回promise对象
       return new Promise((resolve, reject) => {
-        Request.httpRequest({
+        Request.httpRequest({// 发起HTTP请求
           method: 'post',
           url: API.Login,
           params: params,
           success: data => {
             console.log(data)
-            localStorage.setItem('ADMIN_TOKEN', data.token)
-            commit('SET_USER_INFO', data.userInfo)
+            localStorage.setItem('ADMIN_TOKEN', data.token)// 本地储存token
+            commit('SET_USER_INFO', data.userInfo)// commit提交用户信息，使state储存用户信息
             resolve(data)
           },
           error: err => {

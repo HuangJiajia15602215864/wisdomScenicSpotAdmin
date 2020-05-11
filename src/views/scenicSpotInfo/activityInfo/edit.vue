@@ -5,7 +5,7 @@
     <div class="scenicSpot-form">
       <el-form ref="form" :model="activityData" label-width="80px">
         <el-form-item label="咨讯标题">
-          <el-input v-model="activityData.title"></el-input>
+          <el-input v-model="title"></el-input>
         </el-form-item>
         <el-form-item label="资讯图片">
           <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :limit=limit
@@ -17,7 +17,7 @@
           </el-dialog>
         </el-form-item>
         <el-form-item label="资讯内容">
-          <el-input type="textarea" v-model="activityData.desc"></el-input>
+          <el-input type="textarea" v-model="desc"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -29,6 +29,10 @@
 </template>
 
 <script>
+  import {
+    activityP,
+    updateActivity
+  } from '@/utils/apply.url';
   export default {
     name: 'editActivity',
     data() {
@@ -36,6 +40,8 @@
         dialogImageUrl: '',
         dialogVisible: false,
         limit: 1,
+        title: '',
+        desc: '',
         activityData: {
           title: '',
           desc: '',
@@ -46,11 +52,39 @@
 
     },
     mounted() {
-      this.activityData = this.$route.query.activityData;
+      if (typeof this.$route.query == 'object') {
+        this.$nextTick(() => {
+          this.title = this.$route.query.title;
+          this.desc = this.$route.query.desc;
+        })
+      }
     },
     methods: {
       onSubmit() {
-        console.log('submit!');
+        this.activityData = {
+          title: this.title,
+          desc: this.desc,
+        }
+        if (typeof this.$route.query == 'object') {
+          this.activityData.id = this.$route.query.id;
+          updateActivity(this.activityData, 'post').then(res => {
+            this.$router.push({
+              path: '/home/activityInfo',
+            });
+          }).catch(err => {
+            console.log(22)
+            this.$message.success('获取失败' || res.msg);
+          });
+        } else {
+          activityP(this.activityData, 'post').then(res => {
+            this.$router.push({
+              path: '/home/activityInfo ',
+            });
+          }).catch(err => {
+            console.log(22)
+            this.$message.success('获取失败' || res.msg);
+          });
+        }
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
