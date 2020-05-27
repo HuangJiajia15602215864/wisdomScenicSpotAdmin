@@ -15,11 +15,11 @@
           <el-form-item prop="phoneNumber" class="login-input-item">
             <el-input v-model="registerForm.phoneNumber" name="phoneNumber" type="text" placeholder="请输入手机号" />
           </el-form-item>
-          <el-form-item prop="code" class="login-input-item">
+          <!-- <el-form-item prop="code" class="login-input-item">
             <el-input v-model="registerForm.code" type="number" name="code" placeholder="请输入短信验证码" maxlength="4" />
             <span :style="{ cursor: isOvertime ? 'default' : 'pointer'}" class="code"
               @click="sendMessage">{{ word }}</span>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item prop="password" class="login-input-item">
             <el-input v-model="registerForm.password" show-password name="password" placeholder="设置登录密码(数字+字母，最少6位)" />
           </el-form-item>

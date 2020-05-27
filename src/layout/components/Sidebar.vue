@@ -5,7 +5,7 @@
         <i class="logo el-icon-s-tools" style="color:chartreuse"></i>
         <span class="title">智慧景区管理系统</span>
       </div>
-      <el-menu :default-openeds="['1']" router :default-active="$route.path" unique-opened @select="choiceSidebarItem">
+      <el-menu  router :default-active="$route.path" unique-opened @select="choiceSidebarItem">
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-date icon-item"></i>景区信息管理</template>
           <el-menu-item-group>
@@ -17,7 +17,7 @@
           <template slot="title"><i class="el-icon-phone-outline icon-item"></i>预约信息管理</template>
           <el-menu-item-group>
             <el-menu-item index="/home/bookParking">预约停车</el-menu-item>
-            <el-menu-item index="/home/buyTicket">购票信息</el-menu-item>
+            <el-menu-item index="/home/bookTicket">购票信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">

@@ -19,8 +19,9 @@
           </el-col>
         </el-form-item>
         <el-form-item label="景点图片">
-          <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :limit=limit
-            :on-exceed="exceed" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+          <el-upload ref="upload" action="http://localhost:3000/upload" list-type="picture-card" :limit=limit
+            :on-exceed="exceed" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+            :on-success="handleAvatarSuccess">
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
@@ -60,6 +61,7 @@
           startDate: '',
           endDate: '',
           desc: '',
+          image:''
         }
       }
     },
@@ -67,26 +69,38 @@
 
     },
     mounted() {
-      if (typeof this.$route.query == 'object') {
+      console.log(this.$route.query.title != undefined)
+      if (this.$route.query.title != undefined) {
         this.$nextTick(() => {
           this.title = this.$route.query.title;
           this.startDate = this.$route.query.startDate;
           this.endDate = this.$route.query.endDate;
           this.desc = this.$route.query.desc;
+          this.dialogImageUrl = this.$route.query.image;
+          console.log(this.$route.query.image)
+          console.log(this.dialogImageUrl)
         })
       }
     },
     methods: {
+      // 上传文件成功的回调
+      handleAvatarSuccess(res, file, fileList) {
+        console.log(res)
+        this.dialogImageUrl = res.data.path;
+      },
       // 新增或提交
       onSubmit() {
+        this.$refs.upload.submit()
         this.spotsData = {
           title: this.title,
           startDate: this.startDate,
           endDate: this.endDate,
           desc: this.desc,
+          image: this.dialogImageUrl
         }
-        if (typeof this.$route.query == 'object') {
-          this.spotsData.id=this.$route.query.id;
+        if (this.$route.query.title != undefined) {
+          console.log(1)
+          this.spotsData.id = this.$route.query.id;
           updateSpot(this.spotsData, 'post').then(res => {
             this.$router.push({
               path: '/home/scenicSpotIntro',
@@ -96,6 +110,7 @@
             this.$message.success('获取失败' || res.msg);
           });
         } else {
+          console.log(2)
           spot(this.spotsData, 'post').then(res => {
             this.$router.push({
               path: '/home/scenicSpotIntro',

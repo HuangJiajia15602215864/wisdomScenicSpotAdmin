@@ -16,9 +16,9 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ?
-      config.build.assetsPublicPath :
-      config.dev.assetsPublicPath
+    publicPath: './'
+    // publicPath: process.env.NODE_ENV === 'production' ?
+    //   config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -66,19 +66,19 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader'
       }
-    //   {
-    //     test: /\.scss$/,
-    //     use:[
-    //         'style-loader',
-    //         'css-loader',
-    //         {
-    //             loader: 'sass-loader',
-    //             options: {
-    //                 indentedSyntax: true
-    //             }
-    //         }
-    //     ]
-    // }
+      //   {
+      //     test: /\.scss$/,
+      //     use:[
+      //         'style-loader',
+      //         'css-loader',
+      //         {
+      //             loader: 'sass-loader',
+      //             options: {
+      //                 indentedSyntax: true
+      //             }
+      //         }
+      //     ]
+      // }
     ]
   },
   node: {

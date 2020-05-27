@@ -8,8 +8,9 @@
           <el-input v-model="title"></el-input>
         </el-form-item>
         <el-form-item label="资讯图片">
-          <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :limit=limit
-            :on-exceed="exceed" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+          <el-upload ref="upload" action="http://localhost:3000/upload" list-type="picture-card" :limit=limit
+            :on-exceed="exceed" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
+            :on-success="handleAvatarSuccess">
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
@@ -52,7 +53,7 @@
 
     },
     mounted() {
-      if (typeof this.$route.query == 'object') {
+      if (this.$route.query.title != undefined) {
         this.$nextTick(() => {
           this.title = this.$route.query.title;
           this.desc = this.$route.query.desc;
@@ -60,12 +61,19 @@
       }
     },
     methods: {
+      // 上传文件成功的回调
+      handleAvatarSuccess(res, file, fileList) {
+        console.log(res)
+        this.dialogImageUrl=res.data.path;
+      },
       onSubmit() {
+        this.$refs.upload.submit()
         this.activityData = {
           title: this.title,
           desc: this.desc,
+          image:this.dialogImageUrl
         }
-        if (typeof this.$route.query == 'object') {
+        if (this.$route.query.title != undefined) {
           this.activityData.id = this.$route.query.id;
           updateActivity(this.activityData, 'post').then(res => {
             this.$router.push({
@@ -78,7 +86,7 @@
         } else {
           activityP(this.activityData, 'post').then(res => {
             this.$router.push({
-              path: '/home/activityInfo ',
+              path: '/home/activityInfo',
             });
           }).catch(err => {
             console.log(22)

@@ -4,7 +4,7 @@
   <div class="scenicSpotIntro">
     <!-- 表格顶部 -->
     <div class="header">
-      <el-input v-model="search" size="small" placeholder="输入关键字搜索" />
+      <el-input v-model="search" size="small" clearable placeholder="输入关键字搜索" />
       <el-button type="primary" size="mini" @click=goSearch>搜索</el-button>
       <el-button type="primary" size="small" @click="$router.push('/home/scenicSpotIntro/edit')">添加景点信息</el-button>
     </div>
@@ -52,9 +52,8 @@
     </el-table>
     <!-- 分页符 -->
     <el-pagination class="pagination" background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      :current-page="currentPage" :page-sizes="[100, 200, 300, 400]" :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper" :total="40">
-    </el-pagination>
+      :current-page="currentPage" :page-sizes="[10,20,50]" :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper" :total="spotsData.length">
     </el-pagination>
   </div>
 </template>
@@ -62,7 +61,8 @@
 <script>
   import {
     spots,
-    deleteSpot
+    deleteSpot,
+    findSpot
   } from '@/utils/apply.url';
   export default {
     name: 'scenicSpotIntro',
@@ -113,8 +113,26 @@
         const params = {
           searchWord: this.search
         }
-        spots(params, 'get').then(res => {
-          this.spotsData = res;
+        findSpot(params, 'get').then(res => {
+          console.log(11)
+          if (res.length != 0) {
+            var index = 1;
+            var obj = {};
+            for (let i = 0; i < res.length; i++) {
+              obj = {
+                num: index++,
+                id: res[i].id,
+                title: res[i].title,
+                time: this.timestampToTime(res[i].startDate) + '~' + this.timestampToTime(res[i].endDate),
+                desc: res[i].descs,
+                image: res[i].image
+              };
+              this.spotsData.push(obj)
+            }
+            console.log(this.spotsData)
+          } else {
+            this.$message.success(res.msg);
+          }
         }).catch(err => {
           Toast('获取失败' || res.msg);
         });
@@ -123,7 +141,7 @@
         var date = new Date(timestamp);
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = date.getDate() + ' ';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
         return Y + M + D;
       },
       handleEdit(index, row) {
@@ -148,7 +166,7 @@
           this.$message.success(res.msg);
         }).catch(err => {
           console.log(22)
-          this.$message.success('删除失败' || res.msg);
+          this.$message.success('删除成功' || res.msg);
         });
         this.getSpotsData();
       },

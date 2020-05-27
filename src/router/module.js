@@ -39,6 +39,22 @@ const module=[{
     }
   },
   {
+    path: '/home/bookTicket',
+    name: 'bookTicket',
+    component: resolve => void require(['@/views/bookingInfo/bookTicket/index'], resolve),
+    meta: {
+      title: '购票信息'
+    }
+  },
+  {
+    path: '/home/bookTicket/edit',
+    name: 'editTicket',
+    component: resolve => void require(['@/views/bookingInfo/bookTicket/edit'], resolve),
+    meta: {
+      title: '电子门票编辑'
+    }
+  },
+  {
     path: '/home/scenicSpotTraffic',
     name: 'scenicSpotTraffic',
     component: resolve => void require(['@/views/dataVisualization/scenicSpotTraffic'], resolve),
@@ -52,6 +68,14 @@ const module=[{
     component: resolve => void require(['@/views/dataVisualization/ticketSales'], resolve),
     meta: {
       title: '售票情况'
+    }
+  },
+  {
+    path: '/home/heatMap',
+    name: 'heatMap',
+    component: resolve => void require(['@/views/dataVisualization/heatMap'], resolve),
+    meta: {
+      title: '客流热力图'
     }
   }
 ]

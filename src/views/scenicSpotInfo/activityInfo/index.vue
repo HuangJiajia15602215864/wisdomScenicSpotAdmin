@@ -48,9 +48,8 @@
     </el-table>
     <!-- 分页符 -->
     <el-pagination class="pagination" background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      :current-page="currentPage" :page-size="10" layout="total, prev, pager, next, jumper"
+      :current-page="currentPage" :page-sizes="[10,20,50]" :page-size="10" layout="total, prev, pager, next, jumper"
       :total="activityData.length">
-    </el-pagination>
     </el-pagination>
   </div>
 </template>
@@ -58,7 +57,8 @@
 <script>
   import {
     activityinfo,
-    deleteActivity
+    deleteActivity,
+    findActivity
   } from '@/utils/apply.url';
   export default {
     name: 'activityInfo',
@@ -108,7 +108,7 @@
         const params = {
           searchWord: this.search
         }
-        activityinfo(params, 'get').then(res => {
+        findActivity(params, 'get').then(res => {
           if (res.length != 0) {
             var index = 1;
             var obj = {};
@@ -149,7 +149,7 @@
           this.$message.success(res.msg);
         }).catch(err => {
           console.log(22)
-          this.$message.success('删除失败' || res.msg);
+          this.$message.success('删除成功' || res.msg);
         });
         this.getActivityData();
       },

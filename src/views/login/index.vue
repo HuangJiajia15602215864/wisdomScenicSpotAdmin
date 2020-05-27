@@ -30,9 +30,9 @@
               style="padding-left: 45px"  @cut.native.capture.prevent="() => {return}"
               @keyup.enter.native="handleLogin" />
           </el-form-item>
-          <div class="forget-psw" @click="$router.push({name: 'ResetPsw'})">
+          <!-- <div class="forget-psw" @click="$router.push({name: 'ResetPsw'})">
             忘记密码？
-          </div>
+          </div> -->
         </template>
         <template v-if="activeTab===2">
           <el-form-item prop="phoneNumber" class="login-input-item">
@@ -108,12 +108,12 @@
         redirect: undefined,
         tabList: [{
             value: 1,
-            name: '密码登录'
+            name: '账号密码登录'
           },
-          {
-            value: 2,
-            name: '短信登录'
-          }
+          // {
+          //   value: 2,
+          //   name: '短信登录'
+          // }
         ],
         loginForm: {
           user: '',
@@ -145,7 +145,6 @@
             validator: validateCode
           }]
         },
-
       }
     },
     watch: {
@@ -272,12 +271,10 @@
       }
     }
   }
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scope>
   @import '~@/styles/index';
   @import '~@/styles/mixin';
   @import '~@/styles/login';
-
 </style>

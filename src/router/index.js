@@ -1,23 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import module from './module'
-import MapContainer from '@/components/MapContainer'
 Vue.use(Router)
 
 // 常规路由（重定向、登录注册忘记密码、首页、404）
 export const constantRoutes = [
-  // {
-  //   path: '/',
-  //   redirect: '/login'
-  // },
   {
     path: '/',
-    name: 'MapContainer',
-    component: MapContainer
+    redirect: '/login'
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: resolve => void require(['@/views/login/index'], resolve),
     meta: {
       title: '登录'
