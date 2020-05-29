@@ -8,7 +8,7 @@
           <el-input v-model="title"></el-input>
         </el-form-item>
         <el-form-item label="资讯图片">
-          <el-upload ref="upload" action="http://localhost:3000/upload" list-type="picture-card" :limit=limit
+          <el-upload ref="upload" action="http://localhost:3000/upload" enctype="multipart/form-data" list-type="picture-card" :limit=limit
             :on-exceed="exceed" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
             :on-success="handleAvatarSuccess">
             <i class="el-icon-plus"></i>
